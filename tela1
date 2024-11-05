@@ -1,0 +1,37 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget
+from tela2 import tela2  # Certifique-se de que tela2.py está no mesmo diretório ou corretamente importado.
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Primeira Tela")
+        self.setFixedSize(600, 400)
+
+        # Definir layout central
+        widget = QWidget()
+        self.setCentralWidget(widget)
+
+        # Criar layout
+        layout = QVBoxLayout()
+
+        # Botão para acessar o sistema
+        botao = QPushButton("Acessar Sistema")
+        botao.setStyleSheet("font-size: 16px; background-color: pink; color:black;")
+        botao.clicked.connect(self.abrir_tela2)  # Conectar o botão à função de abrir a tela 2
+        layout.addWidget(botao)
+
+        # Definir o layout no widget central
+        widget.setLayout(layout)
+
+    def abrir_tela2(self):
+        # Criar a instância de tela 2
+        self.tela2_window = tela2(self)
+        self.tela2_window.show()  # Exibir a tela 2
+        self.hide()  # Esconder a tela 1 quando a tela 2 for exibida
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()  # Exibir a tela 1
+    sys.exit(app.exec_())
