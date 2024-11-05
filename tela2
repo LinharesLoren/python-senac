@@ -1,0 +1,73 @@
+from PyQt5.QtGui import QPixmap, QTextOption
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QApplication
+from PyQt5.QtCore import Qt
+
+class tela2(QWidget):
+    def __init__(self, tela1):
+        super().__init__()
+        layout = QVBoxLayout()
+        self.tela1=tela1
+
+        # Definir o título da janela
+        self.setWindowTitle("Bem-vindo à Tela 2!")  # Corrigido aqui
+
+        # Criar o widget de título
+
+        titulo = QLabel("Bem-vindo(a) à calculadora de imóveis!")
+        titulo.setStyleSheet("font-size: 18px;")
+
+        # Adicionar o título ao layout
+        layout.addWidget(titulo)
+
+        # Definir o layout da janela
+        self.setLayout(layout)
+
+        # Definir o tamanho fixo da tela
+        self.setFixedSize(600, 400)
+
+        #centralizar o título
+        titulo.setAlignment(Qt.AlignCenter)
+
+        #adicionando uma imagem
+        imagem= QPixmap("asd.jpg")
+        imagem= imagem.scaled(300, 200, Qt.KeepAspectRatio)#temanho imagemn
+        img_label = QLabel(self)
+        img_label.setPixmap(imagem)
+        img_label.setAlignment(Qt.AlignCenter)#centraliza a imagem
+        layout.addWidget(img_label)
+
+        #paragrafo
+        texto = QLabel("Saiba qual vai ser o valor do seu tão sonhado lar!")
+        texto.setWordWrap(True)
+        option = QTextOption()
+        option.setAlignment(Qt.AlignJustify)
+        texto.setStyleSheet("font-size: 18px;")
+        layout.addWidget(texto)
+
+        #link para web
+        web= QLabel("<a href='https://calculadoraimoveis.netlify.app/'>Saiba mais</a>")
+        web.setOpenExternalLinks(True)
+        web.setStyleSheet("font-size: 14px; color: black;")
+        layout.addWidget(web)
+
+        #botao voltar
+        voltar= QPushButton("Voltar Página Inicial")
+        voltar.setStyleSheet("Background-color: pink; color: black;")
+        voltar.clicked.connect(self.voltar)
+        layout.addWidget(voltar)
+
+        #botão de sair
+        sair= QPushButton("Sair")
+        sair.setStyleSheet("background-color: pink; color: black;")
+        sair.clicked.connect(self.sair)
+        layout.addWidget(sair)
+
+
+    def voltar(self):
+        self.close()
+        self.tela1.show()
+
+    def sair(self):
+        QApplication.quit()
+
+
